@@ -1,8 +1,13 @@
-USERNAME_Ulrika=root
-PASSWORD_Ulrika=Lyktstolpe1
-CONN_STRING_Ulrika=jdbc:mysql://localhost:3306/bikerent
+USERNAME_Ulrikaa=rille
+PASSWORD_Ulrikaa=Rille999
+CONN_STRING_Ulrika=jdbc:mysql://192.168.1.200:3306/bikerent
+CONN_STRING_Ulrikaa=jdbc:mysql://83.250.52.184:3306/bikerent
+USERNAME_Ulrika=niklasdevel2
+PASSWORD_Ulrika=dru3eXa
 USERNAME_Niklas=dbuser
 PASSWORD_Niklas=1234
 CONN_STRING_Niklas=jdbc:mysql://localhost/bikerent
+CONN_STRING_Ulrikaa=jdbc:mysql://localhost:3306/bikerent
+PASSWORD_Ulrikaa=492oktupf9e8s1n3kkjnm2qvoq
 
 
