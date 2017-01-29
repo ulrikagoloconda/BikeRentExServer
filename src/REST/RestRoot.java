@@ -387,4 +387,33 @@ public class RestRoot {
             return null;
         }
     }
+
+
+  //Metoden tar emot en sträng som sedan används för att göra en wild card sökning i databasen
+  @POST
+  @Path("/fetchStat")
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.TEXT_PLAIN)
+  public String getSearchResults(String json) {
+    Gson gson = new Gson();
+    MainViewInformaiton mvi = gson.fromJson(json, MainViewInformaiton.class);
+    String clientToken = dbAccess.readSessionToken(mvi.getCurrentUser().getUserID());
+    String returnJson;
+    if (mvi.getCurrentUser().getSessionToken().equals(clientToken)) {
+     //TODO: populate the stream and the pathstring
+      //Statistics returnedStats = AccessStat.getStat( mvi.getCurrentUser().getUserID());
+      StatsGrabber theStats = StatsGrabber.getInstance();
+      String fileNameOfPDF = theStats.generatePDFStatsGetFileName(mvi);
+      //FileHelper.openPDF(fileNameOfPDF);
+      mvi.setPreferdPdfFileName(fileNameOfPDF); //add statpath
+      mvi.setPdfStream(FileHelper.readBytesFromFile(fileNameOfPDF)); //add statStream
+
+      Gson gson1 = new Gson();
+      String returnJson = gson1.toJson(mvi);
+
+      return returnJson;
+    } else {
+      return null;
+    }
+  }
 }

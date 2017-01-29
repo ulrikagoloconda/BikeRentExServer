@@ -147,4 +147,7 @@ public class DBAccessImpl implements DeleteUser, InsertNewUser, DBAccess {
     public int getNumOfCurrentAvailableBikes() {
         return AccessBike.getNumOfCurrentAvailableBikes();
     }
+
+    @Override
+    public Statistics getStat(int userID){ return AccessStat.getStatContet(int userID) }
 }

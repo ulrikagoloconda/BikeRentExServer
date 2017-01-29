@@ -40,4 +40,6 @@ public interface DBAccess {
     boolean isSessionOpen(int userID);
     int getTotalNumOfbikes();
     int getNumOfCurrentAvailableBikes();
+
+    Statistics getStat(int userID);
 }
