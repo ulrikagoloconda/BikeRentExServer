@@ -11,7 +11,7 @@ mysql-connector-java-5.1.39-bin.jar
 
 special:
 Add : YaHPConverter
-by rightclick on it and then "Mark direktory as" and chose "Resorces Root"
+by rightclick on it and then "Mark directory as" and chose "Sores Root"
 
 last:
 add the libs under: YaHPConverter/lib =
