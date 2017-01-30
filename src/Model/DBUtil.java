@@ -11,6 +11,8 @@ package model;
  * @since 2016-10-16
  */
 
+import helpers.PCRelated;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Connection;
@@ -32,8 +34,10 @@ private static Map<String,String> credMap;
 static {
     credMap = new HashMap<>();
   try {
-    //FileReader fr = new FileReader("C:/Users/Goloconda/GitHub/BikeRent3Server/img/dbCreds.txt");
-    FileReader fr = new FileReader("Q:/bikerentEX/server/BikeRentExServer/img/dbCreds.txt");//Q:/JavaEE_Server_Client/BikeRent3Se/img/dbCreds.txt");
+    FileReader fr = new FileReader("C:/Users/Goloconda/GitHub/BikeRent3Server/img/dbCreds.txt");
+    if (PCRelated.isThisNiklasPC()){
+      fr = new FileReader("Q:/bikerentEX/server/BikeRentExServer/img/dbCreds.txt");//Q:/JavaEE_Server_Client/BikeRent3Se/img/dbCreds.txt");
+    }
     BufferedReader br = new BufferedReader(fr);
     String temp;
     while ((temp = br.readLine()) != null){
