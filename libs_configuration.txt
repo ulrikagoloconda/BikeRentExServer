@@ -1,0 +1,26 @@
+first (Mark as lib):
+commons-io-2.4.jar
+jsoup-1.8.3.jar
+osgi-resource-locator-1.0.1.jar
+
+then  (Mark as lib):
+gson-2.8.0.jar
+mysql-connector-java-5.1.39-bin.jar
+
+
+
+special:
+Add : YaHPConverter
+by rightclick on it and then "Mark direktory as" and chose "Resorces Root"
+
+last:
+add the libs under: YaHPConverter/lib =
+ core-renderer.jar
+ itext-2.1.7.jar
+ jaxen-1.1.1.jar
+ jtidy-r938.jar
+ log4j-1.2.16.jar
+ shani-parser-v1.4.17.jar
+ xml-apis.jar
+
+ 
