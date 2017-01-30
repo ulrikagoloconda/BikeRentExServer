@@ -1,9 +1,6 @@
 package stats;
 
-import model.Bike;
-import model.BikeUser;
-import model.MainViewInformaiton;
-import model.Statistics;
+import model.*;
 
 /**
  * @author 		Niklas Karlsson<br>
@@ -35,7 +32,7 @@ public class XMLholder {
 	protected XMLholder(){
 	}
 	/**
-	 * @param String theXMLblock and a chunk of tags in the XML-holder-string<br>
+	 * @param theXMLblock and a chunk of tags in the XML-holder-string<br>
 	 * NOTE: need to be complete start and stop-tags!
 	 *
 	 */
@@ -116,7 +113,7 @@ public class XMLholder {
 		dummy.setNumberMen20to30Percent(60);
 		dummy.setNumberMen30to40Percent(22);
 		dummy.setNumberMen40to50Percent(11);
-		dummy.setNumberMen5to130Percent(1);
+		dummy.setNumberMen50to130Percent(1);
 		
 		dummy.setNumberWomen20to30Percent(40.56);
 		dummy.setNumberWomen30to40Percent(20.56);
@@ -150,7 +147,7 @@ public class XMLholder {
 	}
 
 	/**
-	 * @param MainViewInformation	 
+	 * @param mvi
 	 * We have to init the XMLHolder, please do this before you start use this instanse!
 	 */
 	public void init(MainViewInformaiton mvi) {

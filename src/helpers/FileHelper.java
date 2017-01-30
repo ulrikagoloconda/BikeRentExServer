@@ -73,7 +73,7 @@ public static void saveByteArrayToFile(String filePath, ByteArrayInputStream inp
   }
 
 
-  private static byte[] readBytesFromFile(String filePath) {
+  public static byte[] readBytesFromFile(String filePath) {
 
     FileInputStream fileInputStream = null;
     byte[] bytesArray = null;

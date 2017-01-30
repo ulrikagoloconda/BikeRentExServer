@@ -1,6 +1,4 @@
-package Model;
-import Model.Bike;
-import Model.BikeUser;
+package model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -13,32 +11,37 @@ public class Statistics {
 
     //BikeStatistics
     private int numberOfTotalBikes;
-    private int availableBikesPercent;
-    private int numberOfUsableBikesPercent; //3, 4 eller 5
-    private int numberOfMaintenancePercent; //2
-    private int numberOfDisabledBikesPercent; //1
+    private double availableBikesPercent;
+    private double numberOfUsableBikesPercent; //3, 4 eller 5
+    private double numberOfMaintenancePercent; //2
+    private double numberOfDisabledBikesPercent; //1
 
     //Användarstatistik
     private int numberOfUsers;
-    private int numberOfMenPercent;
-    private int numberOfWomenPercent;
-    private int numberOfOthersPercent;
+    private double numberOfMenPercent;
+    private double numberOfWomenPercent;
+    private double numberOfOthersPercent;
 
-    private int numberMen20to30Percent;
+    private double numberMen20to30Percent;
 
-    private int numberMen30to40Percent;
-    private int numberMen40to50Percent;
-    private int numberMen5to130Percent;
-    private int numberWomen20to30Percent;
-    private int numberWomen30to40Percent;
-    private int numberWomen40to50Percent;
-    private int numberWomen50to130Percent;
+    private double numberMen30to40Percent;
+    private double numberMen40to50Percent;
+    private double numberMen50to130Percent;
+    private double numberWomen20to30Percent;
+    private double numberWomen30to40Percent;
+    private double numberWomen40to50Percent;
+    private double numberWomen50to130Percent;
+
+    private double numberOther20to30Percent;
+    private double numberOther30to40Percent;
+    private double numberOther40to50Percent;
+    private double numberOther50to130Percent;
 
     //Aktivitetsstatistk
     private int numberNewLoans30DaysBackTotal;
-    private int numberNewLoans30DaysBackMenPercent;
-    private int numberNewLoans30DaysBackWomenPercent;
-    private int numberNewLoans30DaysBackOtherPercent;
+    private double numberNewLoans30DaysBackMenPercent;
+    private double numberNewLoans30DaysBackWomenPercent;
+    private double numberNewLoans30DaysBackOtherPercent;
     private BikeUser mosteActiveUserGroup; //Ev ett enum
     private BikeUser leastActiveUserGroup;
     private BikeUser mostActiveUserGroup30DaysBack;
@@ -90,35 +93,35 @@ public class Statistics {
         this.numberOfTotalBikes = numberOfTotalBikes;
     }
 
-    public int getAvailableBikesPercent() {
+    public double getAvailableBikesPercent() {
         return availableBikesPercent;
     }
 
-    public void setAvailableBikesPercent(int availableBikesPercent) {
+    public void setAvailableBikesPercent(double availableBikesPercent) {
         this.availableBikesPercent = availableBikesPercent;
     }
 
-    public int getNumberOfUsableBikesPercent() {
+    public double getNumberOfUsableBikesPercent() {
         return numberOfUsableBikesPercent;
     }
 
-    public void setNumberOfUsableBikesPercent(int numberOfUsableBikesPercent) {
+    public void setNumberOfUsableBikesPercent(double numberOfUsableBikesPercent) {
         this.numberOfUsableBikesPercent = numberOfUsableBikesPercent;
     }
 
-    public int getNumberOfMaintenancePercent() {
+    public double getNumberOfMaintenancePercent() {
         return numberOfMaintenancePercent;
     }
 
-    public void setNumberOfMaintenancePercent(int numberOfMaintenancePercent) {
+    public void setNumberOfMaintenancePercent(double numberOfMaintenancePercent) {
         this.numberOfMaintenancePercent = numberOfMaintenancePercent;
     }
 
-    public int getNumberOfDisabledBikesPercent() {
+    public double getNumberOfDisabledBikesPercent() {
         return numberOfDisabledBikesPercent;
     }
 
-    public void setNumberOfDisabledBikesPercent(int numberOfDisabledBikesPercent) {
+    public void setNumberOfDisabledBikesPercent(double numberOfDisabledBikesPercent) {
         this.numberOfDisabledBikesPercent = numberOfDisabledBikesPercent;
     }
 
@@ -130,93 +133,130 @@ public class Statistics {
         this.numberOfUsers = numberOfUsers;
     }
 
-    public int getNumberOfMenPercent() {
+    public double getNumberOfMenPercent() {
         return numberOfMenPercent;
     }
 
-    public void setNumberOfMenPercent(int numberOfMenPercent) {
+    public void setNumberOfMenPercent(double numberOfMenPercent) {
         this.numberOfMenPercent = numberOfMenPercent;
     }
 
-    public int getNumberOfWomenPercent() {
+    public double getNumberOfWomenPercent() {
         return numberOfWomenPercent;
     }
 
-    public void setNumberOfWomenPercent(int numberOfWomenPercent) {
+    public void setNumberOfWomenPercent(double numberOfWomenPercent) {
         this.numberOfWomenPercent = numberOfWomenPercent;
     }
 
-    public int getNumberOfOthersPercent() {
+    public double getNumberOfOthersPercent() {
         return numberOfOthersPercent;
     }
 
-    public void setNumberOfOthersPercent(int numberOfOthersPercent) {
+    public void setNumberOfOthersPercent(double numberOfOthersPercent) {
         this.numberOfOthersPercent = numberOfOthersPercent;
     }
 
-    public int getNumberMen20to30Percent() {
+    public double getNumberMen20to30Percent() {
         return numberMen20to30Percent;
     }
 
-    public void setNumberMen20to30Percent(int numberMen20to30Percent) {
+    public void setNumberMen20to30Percent(double numberMen20to30Percent) {
         this.numberMen20to30Percent = numberMen20to30Percent;
     }
 
-    public int getNumberMen30to40Percent() {
+    public double getNumberMen30to40Percent() {
         return numberMen30to40Percent;
     }
 
-    public void setNumberMen30to40Percent(int numberMen30to40Percent) {
+    public void setNumberMen30to40Percent(double numberMen30to40Percent) {
         this.numberMen30to40Percent = numberMen30to40Percent;
     }
 
-    public int getNumberMen40to50Percent() {
+    public double getNumberMen40to50Percent() {
         return numberMen40to50Percent;
     }
 
-    public void setNumberMen40to50Percent(int numberMen40to50Percent) {
+    public void setNumberMen40to50Percent(double numberMen40to50Percent) {
         this.numberMen40to50Percent = numberMen40to50Percent;
     }
 
-    public int getNumberMen5to130Percent() {
-        return numberMen5to130Percent;
+    public double getNumberMen50to130Percent() {
+        return numberMen50to130Percent;
     }
 
-    public void setNumberMen5to130Percent(int numberMen5to130Percent) {
-        this.numberMen5to130Percent = numberMen5to130Percent;
+    public void setNumberMen50to130Percent(double numberMen5to130Percent) {
+        this.numberMen50to130Percent = numberMen5to130Percent;
     }
 
-    public int getNumberWomen20to30Percent() {
+    public double getNumberWomen20to30Percent() {
         return numberWomen20to30Percent;
     }
 
-    public void setNumberWomen20to30Percent(int numberWomen20to30Percent) {
+    public void setNumberWomen20to30Percent(double numberWomen20to30Percent) {
         this.numberWomen20to30Percent = numberWomen20to30Percent;
     }
 
-    public int getNumberWomen30to40Percent() {
+    public double getNumberWomen30to40Percent() {
         return numberWomen30to40Percent;
     }
 
-    public void setNumberWomen30to40Percent(int numberWomen30to40Percent) {
+    public void setNumberWomen30to40Percent(double numberWomen30to40Percent) {
         this.numberWomen30to40Percent = numberWomen30to40Percent;
     }
 
-    public int getNumberWomen40to50Percent() {
+    public double getNumberWomen40to50Percent() {
         return numberWomen40to50Percent;
     }
 
-    public void setNumberWomen40to50Percent(int numberWomen40to50Percent) {
+    public void setNumberWomen40to50Percent(double numberWomen40to50Percent) {
         this.numberWomen40to50Percent = numberWomen40to50Percent;
     }
 
-    public int getNumberWomen50to130Percent() {
+
+    public double getNumberWomen50to130Percent() {
         return numberWomen50to130Percent;
     }
 
-    public void setNumberWomen50to130Percent(int numberWomen50to130Percent) {
+    public void setNumberWomen50to130Percent(double numberWomen50to130Percent) {
         this.numberWomen50to130Percent = numberWomen50to130Percent;
     }
+
+
+
+
+  public double getNumberOther20to30Percent() {
+    return numberOther20to30Percent;
+  }
+
+  public void setNumberOther20to30Percent(double numberOther20to30Percent) {
+    this.numberOther20to30Percent = numberOther20to30Percent;
+  }
+
+  public double getNumberOther30to40Percent() {
+    return numberOther30to40Percent;
+  }
+
+  public void setNumberOther30to40Percent(double numberOther30to40Percent) {
+    this.numberOther30to40Percent = numberOther30to40Percent;
+  }
+
+  public double getNumberOther40to50Percent() {
+    return numberOther40to50Percent;
+  }
+
+  public void setNumberOther40to50Percent(double numberOther40to50Percent) {
+    this.numberOther40to50Percent = numberOther40to50Percent;
+  }
+
+  public double getNumberOther50to130Percent() {
+    return numberOther50to130Percent;
+  }
+
+  public void setNumberOther50to130Percent(double numberOther50to130Percent) {
+    this.numberOther50to130Percent = numberOther50to130Percent;
+  }
+
 
     public int getNumberNewLoans30DaysBackTotal() {
         return numberNewLoans30DaysBackTotal;
@@ -226,27 +266,27 @@ public class Statistics {
         this.numberNewLoans30DaysBackTotal = numberNewLoans30DaysBackTotal;
     }
 
-    public int getNumberNewLoans30DaysBackMenPercent() {
+    public double getNumberNewLoans30DaysBackMenPercent() {
         return numberNewLoans30DaysBackMenPercent;
     }
 
-    public void setNumberNewLoans30DaysBackMenPercent(int numberNewLoans30DaysBackMenPercent) {
+    public void setNumberNewLoans30DaysBackMenPercent(double numberNewLoans30DaysBackMenPercent) {
         this.numberNewLoans30DaysBackMenPercent = numberNewLoans30DaysBackMenPercent;
     }
 
-    public int getNumberNewLoans30DaysBackWomenPercent() {
+    public double getNumberNewLoans30DaysBackWomenPercent() {
         return numberNewLoans30DaysBackWomenPercent;
     }
 
-    public void setNumberNewLoans30DaysBackWomenPercent(int numberNewLoans30DaysBackWomenPercent) {
+    public void setNumberNewLoans30DaysBackWomenPercent(double numberNewLoans30DaysBackWomenPercent) {
         this.numberNewLoans30DaysBackWomenPercent = numberNewLoans30DaysBackWomenPercent;
     }
 
-    public int getNumberNewLoans30DaysBackOtherPercent() {
+    public double getNumberNewLoans30DaysBackOtherPercent() {
         return numberNewLoans30DaysBackOtherPercent;
     }
 
-    public void setNumberNewLoans30DaysBackOtherPercent(int numberNewLoans30DaysBackOtherPercent) {
+    public void setNumberNewLoans30DaysBackOtherPercent(double numberNewLoans30DaysBackOtherPercent) {
         this.numberNewLoans30DaysBackOtherPercent = numberNewLoans30DaysBackOtherPercent;
     }
 

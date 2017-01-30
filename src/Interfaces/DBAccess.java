@@ -1,9 +1,9 @@
 package Interfaces;
 
-import Model.Bike;
-import Model.BikeType;
-import Model.BikeUser;
-import Model.Statistics;
+import model.Bike;
+import model.BikeType;
+import model.BikeUser;
+import model.Statistics;
 
 
 import java.sql.SQLException;

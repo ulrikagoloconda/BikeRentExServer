@@ -2,7 +2,7 @@
 package stats;
 
 import helpers.ProgramPathAndDir;
-import Model.MainViewInformaiton;
+import model.MainViewInformaiton;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

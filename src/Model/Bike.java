@@ -1,9 +1,6 @@
-package Model;
+package model;
 
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 /**

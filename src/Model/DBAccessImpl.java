@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import Interfaces.DBAccess;
 import Interfaces.DeleteUser;

@@ -51,7 +51,7 @@ public class StatPart3 implements Chain {
 					  + theXMLForStats.getRowStat().getNumberMen40to50Percent()
 				+    "</male4050>"
 				+    "<male50more>"
-					  + theXMLForStats.getRowStat().getNumberMen5to130Percent()
+					  + theXMLForStats.getRowStat().getNumberMen50to130Percent()
 				+    "</male50more>"
 				+ "</male>"
 				+ "<female>"

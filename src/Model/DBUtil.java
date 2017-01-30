@@ -1,4 +1,4 @@
-package Model;
+package model;
 /**
  * @author Niklas Karlsson
  * <h1>DBUtil</h1>

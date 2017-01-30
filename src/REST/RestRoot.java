@@ -2,9 +2,11 @@
 package REST;
 
 import Interfaces.DBAccess;
-import Model.*;
+import model.*;
 import com.google.gson.Gson;
 import helpers.AuthHelper;
+import helpers.FileHelper;
+import stats.StatsGrabber;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -394,7 +396,7 @@ public class RestRoot {
   @Path("/fetchStat")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.TEXT_PLAIN)
-  public String getSearchResults(String json) {
+  public String getStats(String json) {
     Gson gson = new Gson();
     MainViewInformaiton mvi = gson.fromJson(json, MainViewInformaiton.class);
     String clientToken = dbAccess.readSessionToken(mvi.getCurrentUser().getUserID());
@@ -409,7 +411,7 @@ public class RestRoot {
       mvi.setPdfStream(FileHelper.readBytesFromFile(fileNameOfPDF)); //add statStream
 
       Gson gson1 = new Gson();
-      String returnJson = gson1.toJson(mvi);
+      returnJson = gson1.toJson(mvi);
 
       return returnJson;
     } else {

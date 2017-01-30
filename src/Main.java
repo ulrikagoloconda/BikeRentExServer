@@ -1,8 +1,7 @@
 ;import Interfaces.DBAccess;
-import Model.*;
+import model.*;
 import REST.RestRoot;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import java.io.ByteArrayInputStream;
 import java.util.Calendar;
