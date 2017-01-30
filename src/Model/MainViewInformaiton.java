@@ -18,12 +18,27 @@ public class MainViewInformaiton {
     private BikeUser alteredUser;
     private Bike newBike;
     private int rentedBikes;
+  private ByteArrayInputStream PdfStream;
+  private String preferdPdfFileName;
 
+  public MainViewInformaiton() {
 
+  }
+  public String getPreferdPdfFileName() {
+    return preferdPdfFileName;
+  }
 
-    public MainViewInformaiton() {
+  public void setPreferdPdfFileName(String preferdPdfFileName) {
+    this.preferdPdfFileName = preferdPdfFileName;
+  }
 
-    }
+  public ByteArrayInputStream getPdfStream() {
+    return PdfStream;
+  }
+
+  public void setPdfStream(ByteArrayInputStream pdfStream) {
+    PdfStream = pdfStream;
+  }
 
     public BikeUser getCurrentUser() {
         return currentUser;

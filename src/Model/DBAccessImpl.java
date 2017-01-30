@@ -147,4 +147,11 @@ public class DBAccessImpl implements DeleteUser, InsertNewUser, DBAccess {
     public int getNumOfCurrentAvailableBikes() {
         return AccessBike.getNumOfCurrentAvailableBikes();
     }
+
+    @Override
+    public Statistics getStat(int userID) { 
+        //return AccessStat.getStatContet(int userID); TODO detta är en utmarkering, en nödlösning
+        //// TODO för at tkunna merga
+        return null;
+    }
 }

@@ -3,6 +3,7 @@ package Interfaces;
 import Model.Bike;
 import Model.BikeType;
 import Model.BikeUser;
+import Model.Statistics;
 
 
 import java.sql.SQLException;
@@ -40,4 +41,6 @@ public interface DBAccess {
     boolean isSessionOpen(int userID);
     int getTotalNumOfbikes();
     int getNumOfCurrentAvailableBikes();
+
+    Statistics getStat(int userID);
 }

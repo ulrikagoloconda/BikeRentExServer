@@ -1,13 +1,11 @@
 package Model;
-
+import Model.Bike;
+import Model.BikeUser;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
  * Created by Niklas och Goloconda on 2017-01-18.
- *
- * Att göra: lägg till kön och födelseår
- * schemalägg event som sparar ner en månadsraport i databasen
  */
 public class Statistics {
     private LocalDateTime dateTime;
