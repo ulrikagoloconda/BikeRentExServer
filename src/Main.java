@@ -12,7 +12,7 @@ public class Main {
 	private static DBAccess dbAccess = new DBAccessImpl();
 private static ByteArrayInputStream stream;
 	public static void main(String[] args) {
-		System.out.println("Obs, k�rs fr�n main och inte som server ");
+		System.out.println("Obs, körs från main och inte som server ");
 		RestRoot restRoot = new RestRoot();
 		BikeUser user = new BikeUser();
 		user.setUserName("Demo123");

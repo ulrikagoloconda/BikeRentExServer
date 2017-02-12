@@ -34,9 +34,13 @@ private static Map<String,String> credMap;
 static {
     credMap = new HashMap<>();
   try {
-    FileReader fr = new FileReader("C:/Users/Goloconda/GitHub/BikeRent3Server/img/dbCreds.txt");
+    FileReader fr;
+    //FileReader fr = new FileReader("C:/Users/Goloconda/GitHub/BikeRent3Server/img/dbCreds.txt");
     if (PCRelated.isThisNiklasPC()){
       fr = new FileReader("Q:/bikerentEX/server/BikeRentExServer/img/dbCreds.txt");//Q:/JavaEE_Server_Client/BikeRent3Se/img/dbCreds.txt");
+    }else{
+      fr = new FileReader("C:/Users/Goloconda/GitHub/BikeRent3Server/img/dbCreds.txt");
+
     }
     BufferedReader br = new BufferedReader(fr);
     String temp;

@@ -1,8 +1,9 @@
 package model;
 
 /**
- * Created by Goloconda on 2016-12-02.
+ * Created by Goloconda on 2017-02-01.
  */
+
 
 public class MainViewInformaiton {
     private BikeUser currentUser;
@@ -16,10 +17,11 @@ public class MainViewInformaiton {
     private BikeUser alteredUser;
     private Bike newBike;
     private int rentedBikes;
-  private byte[] PdfStream;
-  private String preferdPdfFileName;
+	//private ByteArrayInputStream PdfStream;
+  	private byte[] PdfStream;
+  	private String preferdPdfFileName;
 
-  public MainViewInformaiton() {
+	public MainViewInformaiton() {
 
   }
   public String getPreferdPdfFileName() {
@@ -30,6 +32,16 @@ public class MainViewInformaiton {
     this.preferdPdfFileName = preferdPdfFileName;
   }
 
+
+/*
+  public ByteArrayInputStream getPdfStream() {
+    return PdfStream;
+  }
+
+  public void setPdfStream(ByteArrayInputStream pdfStream) {
+    PdfStream = pdfStream;
+  }
+*/
   public byte[] getPdfStream() {
     return PdfStream;
   }
@@ -52,6 +64,15 @@ public class MainViewInformaiton {
 
     public void setTotalBikes(int totalBikes) {
         this.totalBikes = totalBikes;
+    }
+
+
+    public int getAvailableBikes() {
+        return availableBikes;
+    }
+
+    public void setAvailableBikes(int availableBikes) {
+        this.availableBikes = availableBikes;
     }
 
     public String getSearchValue() {
@@ -77,6 +98,14 @@ public class MainViewInformaiton {
         this.bikeToRentID = bikeToRentID;
     }
 
+   public int getBikeToReturnID() {
+        return bikeToReturnID;
+    }
+
+    public void setBikeToReturnID(int bikeToReturnID) {
+        this.bikeToReturnID = bikeToReturnID;
+    }
+
     public BikeUser getOldUser() {
         return oldUser;
     }
@@ -99,22 +128,6 @@ public class MainViewInformaiton {
 
     public void setNewBike(Bike newBike) {
         this.newBike = newBike;
-    }
-
-    public int getAvailableBikes() {
-        return availableBikes;
-    }
-
-    public void setAvailableBikes(int availableBikes) {
-        this.availableBikes = availableBikes;
-    }
-
-    public int getBikeToReturnID() {
-        return bikeToReturnID;
-    }
-
-    public void setBikeToReturnID(int bikeToReturnID) {
-        this.bikeToReturnID = bikeToReturnID;
     }
 
     public int getRentedBikes() {
