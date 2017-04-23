@@ -376,17 +376,19 @@ public class RestRoot {
     @Path("/prestandaMeasurment")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
-    public void prestandaMesaurment(String json) {
+    public String prestandaMesaurment(String json) {
+        int mesaurmentID = 0;
         try {
             Gson gson = new Gson();
             BikeUser user = gson.fromJson(json, BikeUser.class);
             String clientToken = dbAccess.readSessionToken(user.getUserID());
             if (user.getSessionToken().equals(clientToken)) {
-                int mesaurmentID = dbAccess.insertPrestandaMesaurment(user.getMesaurment());
+                 mesaurmentID = dbAccess.insertPrestandaMesaurment(user.getMesaurment());
             }
         } catch (Exception e) {
             e.printStackTrace();
 
         }
+        return mesaurmentID + "";
     }
 }
