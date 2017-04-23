@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="BikeRentExServer:war exploded">
-    <output-path>$PROJECT_DIR$/classes/artifacts/BikeRentExServer_war_exploded</output-path>
+  <artifact type="exploded-war" name="BikeRent3Server:war exploded">
+    <output-path>$PROJECT_DIR$/classes/artifacts/BikeRent3Server_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -33,7 +33,6 @@
           <element id="library" level="project" name="jersey-client-2.24.1" />
           <element id="library" level="project" name="jersey-multipart-1.19.1" />
           <element id="library" level="project" name="gson-2.8.0" />
-          <element id="library" level="project" name="mysql-connector-java-5.1.39-bin (2)" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="BikeRentExServer/web/Web" />

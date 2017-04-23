@@ -20,7 +20,7 @@ import java.util.Map;
 @Path("/resources")
 public class RestRoot {
   private DBAccess dbAccess = new DBAccessImpl();
-  private BikeUser currentUser;
+
 
     //Metoden loggar in användaren i programmet och sakapar en randomiserad sträng, ett session_token, som sedan returneras och
     //sparas på klienten.
@@ -28,19 +28,19 @@ public class RestRoot {
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.TEXT_PLAIN)
   public String loginBikeUser(String json) {
+      BikeUser currentUser = null;
     Gson gson = new Gson();
     BikeUser user;
     user = gson.fromJson(json, BikeUser.class);
     user.setUserID(0);
     try {
       currentUser = dbAccess.logIn(user.getUserName(), user.getPassw());
-      System.out.println("I restroot login " + currentUser.getUserID());
       if (currentUser.getUserID() > 0) {
         ArrayList<Bike> currentBikes = dbAccess.getUsersCurrentBikes(currentUser.getUserID());
         currentUser.setCurrentBikeLoans(currentBikes);
         currentUser.setTotalBikeLoans(dbAccess.getUsersTotalLoan(currentUser.getUserID()));
-        System.out.println("getottalloans: " + currentUser.getTotalBikeLoans() +
-            "get current. bikeloans: " + currentUser.getCurrentBikeLoans() + "phone : " + currentUser.getPhone());
+       /* System.out.println("getottalloans: " + currentUser.getTotalBikeLoans() +
+            "get current. bikeloans: " + currentUser.getCurrentBikeLoans() + "phone : " + currentUser.getPhone());*/
       }
 
     } catch (Exception e) {
@@ -54,7 +54,6 @@ public class RestRoot {
     mvi.setTotalBikes(total);
     mvi.setAvailableBikes(available);
 
-      System.out.println(" I login total: " + total + " available " + available);
     if(dbAccess.isSessionOpen(currentUser.getUserID())){
         mvi.getCurrentUser().setSessionToken(dbAccess.readSessionToken(currentUser.getUserID()));
     } else {
@@ -76,14 +75,10 @@ public class RestRoot {
     Gson gson = new Gson();
     BikeUser newUser;
     newUser = gson.fromJson(json, BikeUser.class);
-      System.out.println(newUser.getPhone() + " i new user phone ");
     boolean isNewUserOK = false;
     try {
-      isNewUserOK = dbAccess.InsertNewUser(
-          //String fName, String lName, int in_memberlevel, String email, int phone, String userName, String password
-          //isUpdateUserOK = dbAccess.UpdateUser(currentUser.getfName(), currentUser.getlName(), in_memberlevel, currentUser.getEmail(), currentUser.getPhone(), currentUser.getUserName(), "1234");
-          newUser.getfName(), newUser.getUserName(), newUser.getMemberLevel(), newUser.getEmail(), newUser.getPhone(), newUser.getUserName(), newUser.getPassw());
-      System.out.println("update ?: " + isNewUserOK);
+      isNewUserOK = dbAccess.insertNewUser(
+          newUser.getfName(), newUser.getUserName(), newUser.getMemberLevel(), newUser.getBirthYear(), newUser.getEmail(), newUser.getPhone(), newUser.getUserName(), newUser.getGender(), newUser.getPassw());
 
 
     } catch (Exception e) {
@@ -91,7 +86,6 @@ public class RestRoot {
     }
 
     String jsonUser = gson.toJson(isNewUserOK);
-    System.out.println(jsonUser);
     return jsonUser;
   }
 
@@ -106,40 +100,32 @@ public class RestRoot {
       mvi = gson.fromJson(json, MainViewInformaiton.class);
       boolean isUpdateUserOK = false;
       BikeUser user = mvi.getOldUser();
-      System.out.println(user.getPhone() + " i alter user phone ");
 
       String clientToken = dbAccess.readSessionToken(user.getUserID());
 
       if (mvi.getOldUser().getSessionToken().equals(clientToken)) {
           try {
-              isUpdateUserOK = dbAccess.UpdateUser(
-                      //String fName, String lName, int in_memberlevel, String email, int phone, String userName, String password
-                      //isUpdateUserOK = dbAccess.UpdateUser(
-                      // currentUser.getfName(),
-                      // currentUser.getlName(),
-                      // in_memberlevel,
-                      // currentUser.getEmail(),
-                      // currentUser.getPhone(),
-                      // currentUser.getUserName(),
-                      // pw..);
-                      //AccessUser.UpdateUser("golo","golo",10,"gologologolo@golo.com",400,"Ulrika", "Golo");
-                      mvi.getAlteredUser().getfName(),
+              String gender = mvi.getAlteredUser().getGender();
+              if(gender.equals("Kvinna")){
+                  gender="Female";
+              }else if(gender.equals("Man")){
+                  gender="Male";
+              }else {
+                  gender="Other";
+              }
+              isUpdateUserOK = dbAccess.UpdateUser(mvi.getAlteredUser().getfName(),
                       mvi.getAlteredUser().getlName(),
                       mvi.getAlteredUser().getMemberLevel(),
                       mvi.getAlteredUser().getEmail(),
                       mvi.getAlteredUser().getPhone(),
                       mvi.getOldUser().getUserName(),
+                      gender,
                       mvi.getAlteredUser().getPassw());
-              System.out.println("passw: "+ mvi.getAlteredUser().getPassw());
-
-              System.out.println("update ?: " + isUpdateUserOK);
-
 
           } catch (Exception e) {
               e.printStackTrace();
           }
           String jsonUser = gson.toJson(isUpdateUserOK);
-          System.out.println(jsonUser);
           return jsonUser;
       }
       return null;
@@ -151,23 +137,22 @@ public class RestRoot {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public String getAvailableBikes(String json) {
-
-
         try {
             Gson gson = new Gson();
             BikeUser user = gson.fromJson(json, BikeUser.class);
             String clientToken = dbAccess.readSessionToken(user.getUserID());
             if (user.getSessionToken().equals(clientToken)) {
                 long millisStartdb = Calendar.getInstance().getTimeInMillis();
-                ArrayList<Bike> availableBikes = dbAccess.selectAvailableBikes();
+               Bikes bikes = dbAccess.selectAvailableBikes();
+                user.getMesaurment().setDbProcedureSec(bikes.getPrestandaMeasurement().getDbProcedureSec());
                 long millisStoptdb = Calendar.getInstance().getTimeInMillis();
-                System.out.println("Tidsåtgång läsa från databas: " + (millisStoptdb - millisStartdb) + " millisekunder" );
+                user.getMesaurment().setReadFromDbJdbcSec((millisStoptdb - millisStartdb)/1000);
                 Bikes bikeCollection = new Bikes();
-                bikeCollection.setBikes(availableBikes);
+                bikeCollection.setPrestandaMeasurement(user.getMesaurment());
+                bikeCollection.setBikes(bikes.getBikes());
                 long millisStart = Calendar.getInstance().getTimeInMillis();
                 String returnJson = gson.toJson(bikeCollection);
                 long millisStop = Calendar.getInstance().getTimeInMillis();
-                System.out.println("Tidsåtgång göra om från objekt till json: " + (millisStop - millisStart) + " millisekunder" );
                 return returnJson;
             } else {
                 return null;
@@ -325,7 +310,6 @@ public class RestRoot {
         Gson gson = new Gson();
         BikeUser user = gson.fromJson(json, BikeUser.class);
         String clientToken = dbAccess.readSessionToken(user.getUserID());
-        System.out.println(user.getMemberLevel());
         if (user.getSessionToken().equals(clientToken) && user.getMemberLevel()==10) {
             Bikes bikes = new Bikes();
             bikes.setBikes(dbAccess.getAllBikes());
@@ -388,32 +372,21 @@ public class RestRoot {
         }
     }
 
+    @POST
+    @Path("/prestandaMeasurment")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void prestandaMesaurment(String json) {
+        try {
+            Gson gson = new Gson();
+            BikeUser user = gson.fromJson(json, BikeUser.class);
+            String clientToken = dbAccess.readSessionToken(user.getUserID());
+            if (user.getSessionToken().equals(clientToken)) {
+                int mesaurmentID = dbAccess.insertPrestandaMesaurment(user.getMesaurment());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
 
-  //Metoden tar emot en sträng som sedan används för att göra en wild card sökning i databasen
-  @POST
-  @Path("/fetchStat")
-  @Produces(MediaType.APPLICATION_JSON)
-  @Consumes(MediaType.TEXT_PLAIN)
-  public String getSearchResults(String json) {
-    Gson gson = new Gson();
-    MainViewInformaiton mvi = gson.fromJson(json, MainViewInformaiton.class);
-    String clientToken = dbAccess.readSessionToken(mvi.getCurrentUser().getUserID());
-    String returnJson;
-    if (mvi.getCurrentUser().getSessionToken().equals(clientToken)) {
-     //TODO: populate the stream and the pathstring
-      //Statistics returnedStats = AccessStat.getStat( mvi.getCurrentUser().getUserID());
-      StatsGrabber theStats = StatsGrabber.getInstance();
-      String fileNameOfPDF = theStats.generatePDFStatsGetFileName(mvi);
-      //FileHelper.openPDF(fileNameOfPDF);
-      mvi.setPreferdPdfFileName(fileNameOfPDF); //add statpath
-      mvi.setPdfStream(FileHelper.readBytesFromFile(fileNameOfPDF)); //add statStream
-
-      Gson gson1 = new Gson();
-      String returnJson = gson1.toJson(mvi);
-
-      return returnJson;
-    } else {
-      return null;
+        }
     }
-  }
 }

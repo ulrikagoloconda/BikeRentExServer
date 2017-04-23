@@ -2,9 +2,9 @@ package Model;
 
 import Interfaces.DBAccess;
 import Interfaces.DeleteUser;
-import Interfaces.InsertNewUser;
 
 import java.sql.SQLException;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -13,14 +13,14 @@ import java.util.Map;
  * @version 1.0
  * @since 2016-09-16
  */
-public class DBAccessImpl implements DeleteUser, InsertNewUser, DBAccess {
+public class DBAccessImpl implements DeleteUser, DBAccess {
     @Override
     public Bike insertNewBike(Bike newBike) {
         return AccessBike.insertNewBike(newBike);
     }
 
     @Override
-    public ArrayList<Bike> selectAvailableBikes() {
+    public Bikes selectAvailableBikes() {
        return AccessBike.selectAvailableBikes();
     }
 
@@ -72,20 +72,25 @@ public class DBAccessImpl implements DeleteUser, InsertNewUser, DBAccess {
     return AccessUser.isUserAvalible(userName);
   }
 
-  @Override
-  public boolean InsertNewUser(String fname, String lname, int memberlevel, String email, int phone, String username, String passw)  {
-        System.out.println("in the add user");
-        return AccessUser.insertNewUser(fname, lname, memberlevel, email, phone, username, passw);
+    @Override
+  public boolean insertNewUser(String fname, String lname, int memberlevel, Year year, String email, int phone, String username, String gender, String passw)  {
+        return AccessUser.insertNewUser(fname, lname, memberlevel, year, email, phone, username, gender, passw);
       }
 
-  @Override
+    @Override
+    public int insertPrestandaMesaurment(PrestandaMeasurement prestandaMeasurement) {
+        return AcccesPrestandaMesaurment.insertMesaurment(prestandaMeasurement);
+
+    }
+
+    @Override
   public ArrayList<Bike> getAllBikes() {
     return AccessBike.getAllBikes();
   }
 
   @Override
-  public boolean UpdateUser(String fName, String lName, int in_memberlevel, String email, int phone, String userName, String password) throws SQLException {
-    return AccessUser.UpdateUser(fName, lName, in_memberlevel, email, phone, userName, password);
+  public boolean UpdateUser(String fName, String lName, int in_memberlevel, String email, int phone, String userName, String gender, String password) throws SQLException {
+    return AccessUser.UpdateUser(fName, lName, in_memberlevel, email, phone, userName, gender, password);
   }
 
   @Override
@@ -148,10 +153,4 @@ public class DBAccessImpl implements DeleteUser, InsertNewUser, DBAccess {
         return AccessBike.getNumOfCurrentAvailableBikes();
     }
 
-    @Override
-    public Statistics getStat(int userID) { 
-        //return AccessStat.getStatContet(int userID); TODO detta är en utmarkering, en nödlösning
-        //// TODO för at tkunna merga
-        return null;
-    }
 }
