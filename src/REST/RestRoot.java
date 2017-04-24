@@ -145,8 +145,10 @@ public class RestRoot {
                 long millisStartdb = Calendar.getInstance().getTimeInMillis();
                Bikes bikes = dbAccess.selectAvailableBikes();
                 user.getMesaurment().setDbProcedureSec(bikes.getPrestandaMeasurement().getDbProcedureSec());
+                System.out.println("");
                 long millisStoptdb = Calendar.getInstance().getTimeInMillis();
-                user.getMesaurment().setReadFromDbJdbcSec((millisStoptdb - millisStartdb)/1000);
+                Long milliLong = new Long(millisStoptdb - millisStartdb);
+                user.getMesaurment().setReadFromDbJdbcSec(milliLong.doubleValue()/1000.0);
                 Bikes bikeCollection = new Bikes();
                 bikeCollection.setPrestandaMeasurement(user.getMesaurment());
                 bikeCollection.setBikes(bikes.getBikes());

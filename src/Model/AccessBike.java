@@ -18,6 +18,7 @@ public class AccessBike {
     public static boolean returnBike(int bikeID, int userID) {
         DBType dataBase = null;
         Connection conn = null;
+        boolean returnBool = false;
         if (helpers.PCRelated.isThisNiklasPC()) {
             dataBase = DBType.Niklas;
         } else {
@@ -25,21 +26,18 @@ public class AccessBike {
         }
         try {
             conn = DBUtil.getConnection(dataBase);
-            String sql = "CALL return_bike(?,?)";
+            String sql = "CALL return_bike(?,?, ?)";
             CallableStatement cs = conn.prepareCall(sql);
             cs.setInt(1, bikeID);
             cs.setInt(2, userID);
-          ResultSet rs = cs.executeQuery();
-          if(rs.next()){
-              boolean returnOK = rs.getBoolean("confirm");
-            return returnOK;
-            }
-          }
-        catch (SQLException e) {
-          e.printStackTrace();
+            cs.registerOutParameter(3, Types.BOOLEAN);
+            ResultSet rs = cs.executeQuery();
+            returnBool = cs.getBoolean(3);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return false;
-        }
+        return returnBool;
+    }
 
 
     public static Bike insertNewBike(Bike newBike) {
@@ -114,12 +112,12 @@ public class AccessBike {
                 availableBikes.add(b);
 
             }
-            long totalTimeSearchAvailableBikes = (ps.getLong(1) / 1000);
+            long totalTimeSearchAvailableBikes = (ps.getLong(1));
             Long totalLong = new Long(totalTimeSearchAvailableBikes);
             double serachTotal = totalLong.doubleValue();
             bikes.setBikes(availableBikes);
             PrestandaMeasurement prestandaMeasurement = new PrestandaMeasurement();
-            prestandaMeasurement.setDbProcedureSec(serachTotal);
+            prestandaMeasurement.setDbProcedureSec(serachTotal/1000.0);
             bikes.setPrestandaMeasurement(prestandaMeasurement);
             conn.commit();
 

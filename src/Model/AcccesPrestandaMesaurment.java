@@ -9,7 +9,6 @@ import java.time.LocalDate;
 public class AcccesPrestandaMesaurment {
 
     public static int insertMesaurment(PrestandaMeasurement prestandaMeasurement) {
-
         DBType dataBase = null;
         Connection conn = null;
         int returnInt = 0;
