@@ -225,6 +225,7 @@ public class RestRoot {
             String clientToken = dbAccess.readSessionToken(mvi.getCurrentUser().getUserID());
             if (mvi.getCurrentUser().getSessionToken().equals(clientToken)) {
                 Bike returnBike = dbAccess.getBikeByID(mvi.getSingleBikeID());
+                System.out.println("I rest root get gingle bike " + returnBike.isAvailable());
                 Gson gson1 = new Gson();
                 String returnJson = gson1.toJson(returnBike);
                 return returnJson;
@@ -337,6 +338,7 @@ public class RestRoot {
 
       if (mvi.getCurrentUser().getSessionToken().equals(clientToken)) {
         boolean returnOk = AccessBike.returnBike(mvi.getBikeToReturnID(), mvi.getCurrentUser().getUserID());
+          System.out.println("I restroot return bike "+ returnOk);
         Gson gson1 = new Gson();
         String returnJson = gson1.toJson(returnOk);
         return returnJson;

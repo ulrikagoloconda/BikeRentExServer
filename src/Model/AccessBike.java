@@ -25,6 +25,7 @@ public class AccessBike {
             dataBase = DBType.Ulrika;
         }
         try {
+            System.out.println("I access bike return bike " + bikeID + " " +  userID);
             conn = DBUtil.getConnection(dataBase);
             String sql = "CALL return_bike(?,?, ?)";
             CallableStatement cs = conn.prepareCall(sql);
@@ -306,16 +307,15 @@ public class AccessBike {
         }
         try {
             conn = DBUtil.getConnection(dataBase);
-            String sql = "Call get_bike_returnedDate_from_ID(?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, bikeID);
-            ResultSet rs = ps.executeQuery();
+            String sql = "Call get_bike_returnedDate_from_ID(?, ?)";
+            CallableStatement cs = conn.prepareCall(sql);
+            cs.setInt(1, bikeID);
+            cs.registerOutParameter(2, Types.BOOLEAN);
+            ResultSet rs = cs.executeQuery();
+            System.out.println(cs.getBoolean(2) + "I access bike get single bike ");
+            b.setAvailable(cs.getBoolean(2));
+
             if (rs.next()) {
-                if (rs.getDate("dayOfActualReturn") == null && rs.getDate("dayOfRent") != null) {
-                    b.setAvailable(false);
-                } else {
-                    b.setAvailable(true);
-                }
                 b.setBrandName(rs.getString("brandname"));
                 Blob blob = rs.getBlob("image");
                 byte[] bytes = blob.getBytes(1, (int) blob.length());
@@ -374,6 +374,7 @@ public class AccessBike {
                 tempBike.setType(rs.getString("typeName"));
                 tempBike.setBrandName(rs.getString("brandname"));
                 tempBike.setDayOfRent(rs.getDate("dayOfRent").toLocalDate());
+                System.out.println(rs.getDate("dayOfReturn").toLocalDate() + " detta är day of return i get current bikes ");
                 tempBike.setDayOfReturn(rs.getDate("dayOfReturn").toLocalDate());
                 bikeList.add(tempBike);
             }
