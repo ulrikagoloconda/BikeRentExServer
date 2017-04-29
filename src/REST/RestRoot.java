@@ -395,4 +395,29 @@ public class RestRoot {
         }
         return mesaurmentID + "";
     }
+
+
+    @POST
+    @Path("/nextTenAvailableBikes")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public String getnextTenAvailableBikes(String json) {
+        System.out.println("I servern next 10 ");
+        try {
+            Gson gson = new Gson();
+            MainViewInformaiton mvi = gson.fromJson(json, MainViewInformaiton.class);
+            String clientToken = dbAccess.readSessionToken(mvi.getCurrentUser().getUserID());
+            if (mvi.getCurrentUser().getSessionToken().equals(clientToken)) {
+                Bikes returnBikes = dbAccess.getNextTenAvailableBikes(mvi.getBikes().getTenNextfromInt());
+                Gson gson1 = new Gson();
+                String returnJson = gson1.toJson(returnBikes);
+                return returnJson;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

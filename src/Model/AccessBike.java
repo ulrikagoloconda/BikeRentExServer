@@ -434,4 +434,44 @@ public class AccessBike {
         }
         return returnInt;
     }
+
+    public static Bikes getNextTenAvailableBikes(int tenNextfromInt) {
+        Bikes bikes = new Bikes();
+        ArrayList<Bike> bikeList = new ArrayList<>();
+        DBType dataBase = null;
+        Connection conn = null;
+        Date dayOfReturn = null;
+
+        if (helpers.PCRelated.isThisNiklasPC()) {
+            dataBase = DBType.Niklas;
+        } else {
+            dataBase = DBType.Ulrika;
+        }
+        try {
+            conn = DBUtil.getConnection(dataBase);
+            String sql = "CALL search_10_next_available_bikes(?)";
+            CallableStatement ps = conn.prepareCall(sql);
+            ps.setInt(1,tenNextfromInt );
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bike tempBike = new Bike();
+                tempBike.setBikeID(rs.getInt("bikeid"));
+                tempBike.setModelYear(rs.getInt("modelyear"));
+                tempBike.setColor(rs.getString("color"));
+                Blob blob = rs.getBlob("image");
+                byte[] bytes = blob.getBytes(1, (int) blob.length());
+                ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+                tempBike.setImageStream(bis);
+                tempBike.setSize(rs.getInt("size"));
+                tempBike.setType(rs.getString("typeName"));
+                tempBike.setBrandName(rs.getString("brandname"));
+                bikeList.add(tempBike);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        bikes.setBikes(bikeList);
+        bikes.setTenNextfromInt(tenNextfromInt);
+        return bikes;
+    }
 }

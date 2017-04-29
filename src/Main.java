@@ -13,18 +13,22 @@ private static ByteArrayInputStream stream;
 	public static void main(String[] args) {
 		System.out.println("Obs, k�rs fr�n main och inte som server ");
 		PrestandaMeasurement pm = new PrestandaMeasurement();
+
+		Bikes bikes = AccessBike.getNextTenAvailableBikes(0);
+		System.out.println(bikes.getBikes().size() + " storlek på listan ");
+
 		//Bike bi = AccessBike.getBikeByID(38589);
 		//AccessBike.returnBike(38593,19);
 		//AccessBike.executeBikeLoan(38593,19);
-		AccessBike.returnBike(38593,19);
-		Bike bi = AccessBike.getBikeByID(38593);
-		System.out.println(bi.getImageStream() + " " + bi.isAvailable());
+		//AccessBike.returnBike(38593,19);
+		//Bike bi = AccessBike.getBikeByID(38593);
+		//System.out.println(bi.getImageStream() + " " + bi.isAvailable());
 		long millisStart = Calendar.getInstance().getTimeInMillis();
-		AccessBike.executeBikeLoan(38593,19);
+		//AccessBike.executeBikeLoan(38593,19);
 		long millisStop = Calendar.getInstance().getTimeInMillis();
 		System.out.println("Tid det tar att utföra lån " + (millisStop - millisStart));
-		Bike bi2 = AccessBike.getBikeByID(38593);
-		System.out.println(bi2.getImageStream() + " " + bi2.isAvailable());
+		//Bike bi2 = AccessBike.getBikeByID(38593);
+		//System.out.println(bi2.getImageStream() + " " + bi2.isAvailable());
 
 
 

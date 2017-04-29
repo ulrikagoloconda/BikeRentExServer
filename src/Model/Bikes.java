@@ -10,6 +10,8 @@ public class Bikes {
     //Lite tillfällig klass, vi kan behöva bygga ut denna för att anpassa till det vi behöver
    private ArrayList<Bike> bikes;
     private Map<String,Integer> searchResults;
+    private Integer tenNextfromInt;
+    private boolean isAllAvailableBikesSent;
     private PrestandaMeasurement prestandaMeasurement;
     public Bikes(){
         bikes = new ArrayList<>();
@@ -37,5 +39,21 @@ public class Bikes {
 
     public void setPrestandaMeasurement(PrestandaMeasurement prestandaMeasurement) {
         this.prestandaMeasurement = prestandaMeasurement;
+    }
+
+    public Integer getTenNextfromInt() {
+        return tenNextfromInt;
+    }
+
+    public void setTenNextfromInt(Integer tenNextfromInt) {
+        this.tenNextfromInt = tenNextfromInt;
+    }
+
+    public boolean isAllAvailableBikesSent() {
+        return isAllAvailableBikesSent;
+    }
+
+    public void setAllAvailableBikesSent(boolean allAvailableBikesSent) {
+        isAllAvailableBikesSent = allAvailableBikesSent;
     }
 }
