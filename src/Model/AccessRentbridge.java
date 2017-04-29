@@ -33,10 +33,8 @@ public class AccessRentbridge {
       while (rs.next()) {
         b = new Bike();
         if (rs.getDate("dayOfActualReturn") == null && rs.getDate("dayOfRent") != null) {
-          System.out.println("i access bike get singelbiek " + rs.getDate("dayOfActualReturn") + " " + rs.getDate(("dayOfRent")));
           b.setAvailable(false);
         } else {
-          System.out.println("i access bike get singelbiek " + rs.getDate("dayOfActualReturn") + " " + rs.getDate(("dayOfRent")));
           b.setAvailable(true);
         }
         b.setBrandName(rs.getString("brandname"));
@@ -49,6 +47,7 @@ public class AccessRentbridge {
         b.setModelYear(rs.getInt("modelyear"));
         b.setBikeID(rs.getInt("bikeID"));
         b.setSize(rs.getInt("size"));
+        b.setDayOfReturn(rs.getDate("dayOfRent").toLocalDate());
        bikes.add(b);
       }
       conn.commit();

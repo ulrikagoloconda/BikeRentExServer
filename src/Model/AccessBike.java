@@ -307,12 +307,12 @@ public class AccessBike {
         }
         try {
             conn = DBUtil.getConnection(dataBase);
+            System.out.println(bikeID + " bikeID i access bike get bike by id");
             String sql = "Call get_bike_returnedDate_from_ID(?, ?)";
             CallableStatement cs = conn.prepareCall(sql);
             cs.setInt(1, bikeID);
             cs.registerOutParameter(2, Types.BOOLEAN);
             ResultSet rs = cs.executeQuery();
-            System.out.println(cs.getBoolean(2) + "I access bike get single bike ");
             b.setAvailable(cs.getBoolean(2));
 
             if (rs.next()) {

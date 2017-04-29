@@ -12,11 +12,14 @@ private static ByteArrayInputStream stream;
 	public static void main(String[] args) {
 		System.out.println("Obs, k�rs fr�n main och inte som server ");
 		PrestandaMeasurement pm = new PrestandaMeasurement();
+		Bike bi = AccessBike.getBikeByID(38589);
+		System.out.println(bi.getColor());
+
 		//Integer measuramentId, LocalDateTime dateTime, double totalTimeSec, double perceivedTimeAvailableBikesSec,
 		// double dbProcedureSec, double readFromDbJdbcSec, double gsonToJsonSec, double executeSec,
 		// double gsonFromJsonSec, double readOneBike, String comment, double totalSizeDataMb) {
 
-		pm.setDateTime(null);
+		/*pm.setDateTime(null);
 		pm.setTotalTimeSec(2.433333333);
 		pm.setPerceivedTimeAvailableBikesSec(3.4);
 		pm.setDbProcedureSec(4.4);
