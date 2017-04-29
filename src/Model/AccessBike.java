@@ -234,7 +234,11 @@ public class AccessBike {
             cs.executeQuery();
             dayOfReturn = cs.getDate(4);
             returnBike = getBikeByID(bikeID);
-            returnBike.setDayOfReturn(dayOfReturn.toLocalDate());
+            if(dayOfReturn!=null) {
+                returnBike.setDayOfReturn(dayOfReturn.toLocalDate());
+            } else {
+                System.out.println("Lånet genomfördes inte");
+            }
             conn.commit();
             return returnBike;
 
