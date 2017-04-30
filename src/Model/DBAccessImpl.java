@@ -84,8 +84,8 @@ public class DBAccessImpl implements DeleteUser, DBAccess {
     }
 
     @Override
-    public Bikes getNextTenAvailableBikes(int tenNextfromInt) {
-        return AccessBike.getNextTenAvailableBikes(tenNextfromInt);
+    public Bikes getNextAvailableBikes(int tenNextfromInt, int numberOfBikesRead) {
+        return AccessBike.getNextTenAvailableBikes(tenNextfromInt, numberOfBikesRead);
     }
 
     @Override

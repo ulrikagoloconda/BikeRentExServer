@@ -435,7 +435,7 @@ public class AccessBike {
         return returnInt;
     }
 
-    public static Bikes getNextTenAvailableBikes(int tenNextfromInt) {
+    public static Bikes getNextTenAvailableBikes(int tenNextfromInt, int numberOfBikesRead) {
         Bikes bikes = new Bikes();
         ArrayList<Bike> bikeList = new ArrayList<>();
         DBType dataBase = null;
@@ -449,9 +449,11 @@ public class AccessBike {
         }
         try {
             conn = DBUtil.getConnection(dataBase);
-            String sql = "CALL search_10_next_available_bikes(?)";
+            String sql = "CALL search_next_available_bikes(?,?, ?)";
             CallableStatement ps = conn.prepareCall(sql);
             ps.setInt(1,tenNextfromInt );
+            ps.setInt(2,numberOfBikesRead);
+            ps.registerOutParameter(3, Types.INTEGER);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Bike tempBike = new Bike();
@@ -467,11 +469,13 @@ public class AccessBike {
                 tempBike.setBrandName(rs.getString("brandname"));
                 bikeList.add(tempBike);
             }
+           bikes.setLasID( ps.getInt(3));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         bikes.setBikes(bikeList);
-        bikes.setTenNextfromInt(tenNextfromInt);
+        bikes.setTenNextfromInt(tenNextfromInt + 10);
         return bikes;
     }
 }

@@ -14,8 +14,8 @@ private static ByteArrayInputStream stream;
 		System.out.println("Obs, k�rs fr�n main och inte som server ");
 		PrestandaMeasurement pm = new PrestandaMeasurement();
 
-		Bikes bikes = AccessBike.getNextTenAvailableBikes(0);
-		System.out.println(bikes.getBikes().size() + " storlek på listan ");
+		Bikes bikes = AccessBike.getNextTenAvailableBikes(0, 8);
+		System.out.println(bikes.getBikes().size() + " storlek på listan " + bikes.getLasID());
 
 		//Bike bi = AccessBike.getBikeByID(38589);
 		//AccessBike.returnBike(38593,19);
