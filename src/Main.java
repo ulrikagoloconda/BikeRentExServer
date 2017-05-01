@@ -2,7 +2,6 @@
 import Model.*;
 
 import java.io.ByteArrayInputStream;
-import java.time.Year;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -14,7 +13,7 @@ private static ByteArrayInputStream stream;
 		System.out.println("Obs, k�rs fr�n main och inte som server ");
 		PrestandaMeasurement pm = new PrestandaMeasurement();
 
-		Bikes bikes = AccessBike.getNextTenAvailableBikes(0, 8);
+		Bikes bikes = AccessBike.getNextAvailableBikes(0, 40);
 		System.out.println(bikes.getBikes().size() + " storlek på listan " + bikes.getLasID());
 
 		//Bike bi = AccessBike.getBikeByID(38589);

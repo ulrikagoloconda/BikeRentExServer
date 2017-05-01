@@ -110,6 +110,8 @@ public class AccessBike {
                 b.setType(rs.getString("typeName"));
                 b.setBrandName(rs.getString("brandname"));
                 b.setImageFileName(rs.getString("imageFileName"));
+               /* LocalDate actualReturn = rs.getDate("dayOfActualReturn").toLocalDate();
+                LocalDate dayOfRent = rs.getDate("dayOfRent").toLocalDate();*/
                 availableBikes.add(b);
 
             }
@@ -435,7 +437,7 @@ public class AccessBike {
         return returnInt;
     }
 
-    public static Bikes getNextTenAvailableBikes(int tenNextfromInt, int numberOfBikesRead) {
+    public static Bikes getNextAvailableBikes(int tenNextfromInt, int numberOfBikesRead) {
         Bikes bikes = new Bikes();
         ArrayList<Bike> bikeList = new ArrayList<>();
         DBType dataBase = null;
@@ -467,6 +469,8 @@ public class AccessBike {
                 tempBike.setSize(rs.getInt("size"));
                 tempBike.setType(rs.getString("typeName"));
                 tempBike.setBrandName(rs.getString("brandname"));
+                boolean isAvailable = rs.getBoolean("available");
+                tempBike.setAvailable(isAvailable);
                 bikeList.add(tempBike);
             }
            bikes.setLasID( ps.getInt(3));
