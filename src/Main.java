@@ -1,5 +1,7 @@
 ;import Interfaces.DBAccess;
 import Model.*;
+import REST.RestRoot;
+import com.google.gson.Gson;
 
 import java.io.ByteArrayInputStream;
 import java.util.Calendar;
@@ -12,8 +14,13 @@ private static ByteArrayInputStream stream;
 	public static void main(String[] args) {
 		System.out.println("Obs, k�rs fr�n main och inte som server ");
 		PrestandaMeasurement pm = new PrestandaMeasurement();
-
-		Bikes bikes = AccessBike.getNextAvailableBikes(0, 40);
+		Bikes bikes = AccessBike.getNextAvailableBikes(0,20);
+Bike bike = AccessBike.getBikeByID(39125);
+stream = bike.getImageStream();
+/*for(int i = 0; i < 300; i++) {
+	//addBikesChild();
+}
+		/*Bikes bikes = AccessBike.getNextAvailableBikes(0, 40);
 		System.out.println(bikes.getBikes().size() + " storlek på listan " + bikes.getLasID());
 
 		//Bike bi = AccessBike.getBikeByID(38589);
@@ -72,7 +79,8 @@ private static ByteArrayInputStream stream;
 		System.out.println(d);
 		//AcccesPrestandaMesaurment.insertMesaurment(pm);
 		//AccessBike.executeBikeLoan(21,19);
-	/*	RestRoot restRoot = new RestRoot();
+
+	/*RestRoot restRoot = new RestRoot();
 		BikeUser user = new BikeUser();
 		user.setUserName("Demo123");
 		user.setPassw("Demo123");
@@ -81,7 +89,7 @@ private static ByteArrayInputStream stream;
 		System.out.println("start " + millisStart);
 		AccessBike.selectAvailableBikes();
 		long millisStop = Calendar.getInstance().getTimeInMillis();
-		System.out.println("läsa från databas available bikes " + (millisStop-millisStart));
+		System.out.println("läsa från databas available bikes " + (millisStop-millisStart));*/
 		//restRoot.loginBikeUser(g.toJson(user));
 		//String json = "{"sessionToken":"9tact15mmvehr8t6g0mhblh580","userID":19}"
 		/*BikeUser user = new BikeUser();
@@ -133,15 +141,14 @@ For Unix-based platforms, see the manual page for the 'ulimit' command. Kernel o
 		Random random = new Random();
 		int randomNumber = random.nextInt(6 - 1) + 1;
 		Bike bike = new Bike();
-		bike.setBrandName("Dbs");
-		bike.setType("Barn");
-		bike.setModelYear(2014);
-		bike.setSize(20);
+		bike.setBrandName("Monark");
+		bike.setType("Dam_city");
+		bike.setModelYear(2007);
+		bike.setSize(28);
 		bike.setState(randomNumber);
-		bike.setColor("Rosa");
+		bike.setColor("Vit");
 		stream.reset();
 		bike.setImageStream(stream);
-
 		AccessBike.insertNewBike(bike);
 	}
 

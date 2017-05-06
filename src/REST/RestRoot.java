@@ -294,6 +294,7 @@ public class RestRoot {
         MainViewInformaiton mvi = gson.fromJson(json, MainViewInformaiton.class);
         String clientToken = dbAccess.readSessionToken(mvi.getCurrentUser().getUserID());
         if (mvi.getCurrentUser().getSessionToken().equals(clientToken)) {
+            System.out.println("Här körs add bike i restroot ");
             Bike returnBike =  dbAccess.insertNewBike(mvi.getNewBike());
             Gson gson1 = new Gson();
             String returnJson = gson1.toJson(returnBike);
@@ -388,6 +389,7 @@ public class RestRoot {
             String clientToken = dbAccess.readSessionToken(user.getUserID());
             if (user.getSessionToken().equals(clientToken)) {
                  mesaurmentID = dbAccess.insertPrestandaMesaurment(user.getMesaurment());
+                System.out.println("Här körs insert Measrumet ");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -407,9 +409,14 @@ public class RestRoot {
             MainViewInformaiton mvi = gson.fromJson(json, MainViewInformaiton.class);
             String clientToken = dbAccess.readSessionToken(mvi.getCurrentUser().getUserID());
             if (mvi.getCurrentUser().getSessionToken().equals(clientToken)) {
+                long millistart = Calendar.getInstance().getTimeInMillis();
                 Bikes returnBikes = dbAccess.getNextAvailableBikes(mvi.getBikes().getTenNextfromInt(), mvi.getBikes().getNumberOfBikesRead());
+                long millistop = Calendar.getInstance().getTimeInMillis();
+                double readFromDB = (millistop - millistart) / 1000.0;
+                mvi.getBikes().getPrestandaMeasurement().setReadFromDbJdbcSec(readFromDB);
                 Gson gson1 = new Gson();
-                System.out.println(returnBikes.getLasID());
+                mvi.getBikes().getPrestandaMeasurement().setDbProcedureSec(returnBikes.getPrestandaMeasurement().getDbProcedureSec());
+                returnBikes.setPrestandaMeasurement(mvi.getBikes().getPrestandaMeasurement());
                 String returnJson = gson1.toJson(returnBikes);
                 return returnJson;
             } else {

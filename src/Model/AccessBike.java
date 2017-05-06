@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @author Ulrika Goloconda Fahlén
@@ -60,7 +61,13 @@ public class AccessBike {
             cs.setInt(5, newBike.getSize());
             ByteArrayInputStream bais = newBike.getImageStream();
             cs.setBinaryStream(6, bais);
-            cs.setInt(7,newBike.getState());
+            if(newBike.getState()==null){
+                Random random = new Random();
+                int stat = random.nextInt(6 - 1) + 1;
+                cs.setInt(7,stat);
+            }else {
+                cs.setInt(7, newBike.getState());
+            }
             ResultSet rs = cs.executeQuery();
             if (rs.next()) {
                 newBike.setBikeID(rs.getInt("bikeID"));
@@ -437,8 +444,10 @@ public class AccessBike {
         return returnInt;
     }
 
-    public static Bikes getNextAvailableBikes(int tenNextfromInt, int numberOfBikesRead) {
+    public static Bikes getNextAvailableBikes(int nextfromInt, int numberOfBikesRead) {
         Bikes bikes = new Bikes();
+        PrestandaMeasurement pm = new PrestandaMeasurement();
+        bikes.setPrestandaMeasurement(pm);
         ArrayList<Bike> bikeList = new ArrayList<>();
         DBType dataBase = null;
         Connection conn = null;
@@ -451,11 +460,12 @@ public class AccessBike {
         }
         try {
             conn = DBUtil.getConnection(dataBase);
-            String sql = "CALL search_next_available_bikes(?,?, ?)";
+            String sql = "CALL search_next_available_bikes(?,?,?,?)";
             CallableStatement ps = conn.prepareCall(sql);
-            ps.setInt(1,tenNextfromInt );
+            ps.setInt(1,nextfromInt );
             ps.setInt(2,numberOfBikesRead);
             ps.registerOutParameter(3, Types.INTEGER);
+            ps.registerOutParameter(4, Types.INTEGER);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Bike tempBike = new Bike();
@@ -474,12 +484,16 @@ public class AccessBike {
                 bikeList.add(tempBike);
             }
            bikes.setLasID( ps.getInt(3));
+            double timeDB = ps.getDouble(4)/1000.0;
+
+            bikes.getPrestandaMeasurement().setDbProcedureSec(timeDB);
+            System.out.println(timeDB);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         bikes.setBikes(bikeList);
-        bikes.setTenNextfromInt(tenNextfromInt + 10);
+        bikes.setTenNextfromInt(nextfromInt + numberOfBikesRead);
         return bikes;
     }
 }
