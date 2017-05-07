@@ -166,8 +166,6 @@ public class AccessUser {
               Connection conn = DBUtil.getConnection(dataBase); //database_user type like ENUM and get PW :-);
               PreparedStatement stmt = conn.prepareStatement(SQLInsertUser, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         ) {
-            //in_fname varchar(50),in_lname varchar(11),in_memberlevel varchar(11), in_birth_year YEAR, in_email varchar(50),in_phone varchar(11),
-            // in_username varchar(11), in_gender ENUM('Male', 'Female', 'Other'), salt_in VARCHAR(40),in_passw varchar(50))
 
             if(gender.equals("Kvinna")){
                 genderSQL = "Female";
@@ -193,6 +191,7 @@ public class AccessUser {
             while (rs.next()) {
                 boolean isAddOK = rs.getBoolean(1);
                 int intisadd = rs.getInt(1);
+
                 return isAddOK;
             }
         } catch (SQLException e) {

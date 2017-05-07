@@ -1,6 +1,6 @@
 USERNAME_Ulrika=rille
 PASSWORD_Ulrika=Rille999
-CONN_STRING_Ulrikaa=jdbc:mysql://192.168.1.200:3306/bikerent
+CONN_STRING_Ulrikaaa=jdbc:mysql://192.168.1.200:3306/bikerent
 CONN_STRING_Ulrika=jdbc:mysql://83.250.52.184:3306/bikerentex
 
 

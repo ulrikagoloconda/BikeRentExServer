@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author Ulrika Goloconda Fahlén
@@ -26,7 +27,6 @@ public class AccessBike {
             dataBase = DBType.Ulrika;
         }
         try {
-            System.out.println("I access bike return bike " + bikeID + " " +  userID);
             conn = DBUtil.getConnection(dataBase);
             String sql = "CALL return_bike(?,?, ?)";
             CallableStatement cs = conn.prepareCall(sql);
@@ -237,7 +237,11 @@ public class AccessBike {
             CallableStatement cs = conn.prepareCall(sql);
             cs.setInt(1, userID);
             cs.setInt(2, bikeID);
-            Date date = Date.valueOf(LocalDate.now());
+            long minDay = LocalDate.of(2016, 1, 1).toEpochDay();
+            long maxDay = LocalDate.of(2017, 05, 07).toEpochDay();
+            long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
+            LocalDate randomDate = LocalDate.ofEpochDay(randomDay);
+            Date date = Date.valueOf(randomDate);
             cs.setDate(3, date);
             cs.registerOutParameter(4, Types.DATE);
             cs.executeQuery();
@@ -320,7 +324,6 @@ public class AccessBike {
         }
         try {
             conn = DBUtil.getConnection(dataBase);
-            System.out.println(bikeID + " bikeID i access bike get bike by id");
             String sql = "Call get_bike_returnedDate_from_ID(?, ?)";
             CallableStatement cs = conn.prepareCall(sql);
             cs.setInt(1, bikeID);
@@ -387,7 +390,6 @@ public class AccessBike {
                 tempBike.setType(rs.getString("typeName"));
                 tempBike.setBrandName(rs.getString("brandname"));
                 tempBike.setDayOfRent(rs.getDate("dayOfRent").toLocalDate());
-                System.out.println(rs.getDate("dayOfReturn").toLocalDate() + " detta är day of return i get current bikes ");
                 tempBike.setDayOfReturn(rs.getDate("dayOfReturn").toLocalDate());
                 bikeList.add(tempBike);
             }
@@ -487,7 +489,6 @@ public class AccessBike {
             double timeDB = ps.getDouble(4)/1000.0;
 
             bikes.getPrestandaMeasurement().setDbProcedureSec(timeDB);
-            System.out.println(timeDB);
 
         } catch (Exception e) {
             e.printStackTrace();

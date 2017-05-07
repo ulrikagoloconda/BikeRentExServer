@@ -2,10 +2,16 @@
 import Model.*;
 import REST.RestRoot;
 import com.google.gson.Gson;
+import helpers.AuthHelper;
 
 import java.io.ByteArrayInputStream;
+import java.time.LocalDate;
+import java.time.Year;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 //Denna klass ska bara anv�ndas f�r att testk�ra metoder
 public class Main {
@@ -13,10 +19,49 @@ public class Main {
 private static ByteArrayInputStream stream;
 	public static void main(String[] args) {
 		System.out.println("Obs, k�rs fr�n main och inte som server ");
+
+//rentBIkes();
+		/*long minDay = LocalDate.of(1945, 1, 1).toEpochDay();
+		long maxDay = LocalDate.of(2017, 05, 07).toEpochDay();
+		long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
+		LocalDate randomDate = LocalDate.ofEpochDay(randomDay);
+		System.out.println(randomDate);
+		for(int i = 0; i<30; i++) {
+			Random rand = new Random();
+			int j = rand.nextInt(105);
+			System.out.println(j+43);
+			ArrayList<Bike> list = bikes.getBikes();
+			int k = rand.nextInt(list.size());
+			System.out.println(list.get(k).getBikeID() + " " + j );
+			System.out.println(AccessBike.executeBikeLoan(list.get(k).getBikeID(),j+43));
+
+		}*/
+
+		//System.out.println(gc.get(gc.YEAR) + "-" + (gc.get(gc.MONTH) + 1) + "-" + gc.get(gc.DAY_OF_MONTH));
+		//43-150
+
+		for(int i = 0; i < 50; i++){
+			Random rand = new Random();
+			String s = generateString(rand, "abcdefghijklmnopqrstuvwxyzåäö", 7);
+			GregorianCalendar gc = new GregorianCalendar();
+			int year = randBetween(1945, 2000);
+			Year year1 = Year.of(year);
+			boolean isok = AccessUser.insertNewUser("Användare", "Användare", 1,year1,"användare@hotmail.com", 0704455345,s, "Man", s);
+			System.out.println(isok);
+		}
+
+
 		PrestandaMeasurement pm = new PrestandaMeasurement();
-		Bikes bikes = AccessBike.getNextAvailableBikes(0,20);
-Bike bike = AccessBike.getBikeByID(39125);
-stream = bike.getImageStream();
+		String salt = AuthHelper.generateValidationToken();
+		//String fname, String lname, int memberlevel, Year year, String email, int phone, String username, String gender, String passw
+		Year yeartry= Year.of(1985);
+		//boolean isok = AccessUser.insertNewUser("Användare", "Användare", 1,year,"användare@hotmail.com", 0704455345,"användare6", "Female", "användare");
+		//System.out.println(isok);
+
+
+		//Bikes bikes = AccessBike.getNextAvailableBikes(0,20);
+//Bike bike = AccessBike.getBikeByID(39125);
+//stream = bike.getImageStream();
 /*for(int i = 0; i < 300; i++) {
 	//addBikesChild();
 }
@@ -136,6 +181,17 @@ For Unix-based platforms, see the manual page for the 'ulimit' command. Kernel o
 
 	}
 
+
+	public static String generateString(Random rng, String characters, int length)
+	{
+		char[] text = new char[length];
+		for (int i = 0; i < length; i++)
+		{
+			text[i] = characters.charAt(rng.nextInt(characters.length()));
+		}
+		return new String(text);
+	}
+
 	public static void addBikesChild(){
 
 		Random random = new Random();
@@ -155,4 +211,31 @@ For Unix-based platforms, see the manual page for the 'ulimit' command. Kernel o
 	public static void deletBikes(int i){
 		AccessBike.deleteBike(i);
 	}
+public void genarteYear() {
+
+}
+	public static int randBetween(int start, int end) {
+		return start + (int)Math.round(Math.random() * (end - start));
+	}
+public static void  rentBIkes() {
+
+	Bikes bikes = AccessBike.selectAvailableBikes();
+
+		/*long minDay = LocalDate.of(1945, 1, 1).toEpochDay();
+		long maxDay = LocalDate.of(2017, 05, 07).toEpochDay();
+		long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
+		LocalDate randomDate = LocalDate.ofEpochDay(randomDay);
+		System.out.println(randomDate);*/
+	for (int i = 0; i < 70; i++) {
+		Random rand = new Random();
+		int j = rand.nextInt(105);
+		System.out.println(j + 43);
+		ArrayList<Bike> list = bikes.getBikes();
+		int k = rand.nextInt(list.size());
+		System.out.println(list.get(k).getBikeID() + " " + j);
+		System.out.println(AccessBike.executeBikeLoan(list.get(k).getBikeID(), j + 43));
+
+	}
+}
+
 }

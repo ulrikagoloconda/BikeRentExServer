@@ -32,7 +32,7 @@ private static Map<String,String> credMap;
 static {
     credMap = new HashMap<>();
   try {
-    FileReader fr = new FileReader("C:/Users/Goloconda/GitHub/BikeRent3Server/img/dbCreds.txt");
+    FileReader fr = new FileReader("C:/Users/Goloconda/GitHub/BikeRentExServer/img/dbCreds.txt");
     //FileReader fr = new FileReader("Q:/JavaEE_Server_Client/BikeRent3Se/img/dbCreds.txt");
     BufferedReader br = new BufferedReader(fr);
     String temp;
