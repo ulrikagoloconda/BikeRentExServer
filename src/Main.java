@@ -19,6 +19,15 @@ public class Main {
 private static ByteArrayInputStream stream;
 	public static void main(String[] args) {
 		System.out.println("Obs, k�rs fr�n main och inte som server ");
+		Bike bike = AccessBike.getBikeByID(39427);
+		stream = bike.getImageStream();
+		addBikesChild();
+	/*	39125
+	39414
+	*
+		for(int i = 39005; i < 38952	; i++){
+			deletBikes(i);
+		}
 
 //rentBIkes();
 		/*long minDay = LocalDate.of(1945, 1, 1).toEpochDay();
@@ -40,16 +49,16 @@ private static ByteArrayInputStream stream;
 		//System.out.println(gc.get(gc.YEAR) + "-" + (gc.get(gc.MONTH) + 1) + "-" + gc.get(gc.DAY_OF_MONTH));
 		//43-150
 
-		for(int i = 0; i < 50; i++){
+		/*(int i = 0; i < 50; i++){
 			Random rand = new Random();
 			String s = generateString(rand, "abcdefghijklmnopqrstuvwxyzåäö", 7);
 			GregorianCalendar gc = new GregorianCalendar();
 			int year = randBetween(1945, 2000);
 			Year year1 = Year.of(year);
-			boolean isok = AccessUser.insertNewUser("Användare", "Användare", 1,year1,"användare@hotmail.com", 0704455345,s, "Man", s);
+			boolean isok = AccessUser.insertNewUser("Användare", "Användare", 1,year1,"användare@hotmail.com", 0704455345,s, "Other", s);
 			System.out.println(isok);
 		}
-
+*/
 
 		PrestandaMeasurement pm = new PrestandaMeasurement();
 		String salt = AuthHelper.generateValidationToken();
@@ -60,8 +69,8 @@ private static ByteArrayInputStream stream;
 
 
 		//Bikes bikes = AccessBike.getNextAvailableBikes(0,20);
-//Bike bike = AccessBike.getBikeByID(39125);
-//stream = bike.getImageStream();
+Bike bike2 = AccessBike.getBikeByID(39427);
+stream = bike2.getImageStream();
 /*for(int i = 0; i < 300; i++) {
 	//addBikesChild();
 }
@@ -105,8 +114,9 @@ private static ByteArrayInputStream stream;
 
 		int j = 37889;
 		int k = 37889 +700;
+
 		for(int i = j; i<k; i++ ) {
-			//deletBikes(i);
+			deletBikes(i);
 		}
 
 		//AccessUser.UpdateUser("DBUser", "DBUser", 10,"dbuser@hotmail.com",07000000,"DBUser", "Female","DBUser");
@@ -193,16 +203,15 @@ For Unix-based platforms, see the manual page for the 'ulimit' command. Kernel o
 	}
 
 	public static void addBikesChild(){
-
 		Random random = new Random();
 		int randomNumber = random.nextInt(6 - 1) + 1;
 		Bike bike = new Bike();
-		bike.setBrandName("Monark");
-		bike.setType("Dam_city");
-		bike.setModelYear(2007);
-		bike.setSize(28);
+		bike.setBrandName("Yosemite");
+		bike.setType("Barn_sport");
+		bike.setModelYear(2012);
+		bike.setSize(20);
 		bike.setState(randomNumber);
-		bike.setColor("Vit");
+		bike.setColor("Grå");
 		stream.reset();
 		bike.setImageStream(stream);
 		AccessBike.insertNewBike(bike);
@@ -220,17 +229,31 @@ public void genarteYear() {
 public static void  rentBIkes() {
 
 	Bikes bikes = AccessBike.selectAvailableBikes();
+	ArrayList<Bike> list = bikes.getBikes();
+	System.out.println(list.size());
+	ArrayList<Integer> idList = new ArrayList<>();
+	ArrayList<Bike> remove = new ArrayList<>();
+	for(int i = 38592; i < 38890; i++){
+		idList.add(i);
+	}
+	for (int i = 0; i < list.size(); i++){
+		if(idList.contains(list.get(i).getBikeID())){
+			remove.add(list.get(i));
+		}
+	}
 
+	list.removeAll(remove);
 		/*long minDay = LocalDate.of(1945, 1, 1).toEpochDay();
 		long maxDay = LocalDate.of(2017, 05, 07).toEpochDay();
 		long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
 		LocalDate randomDate = LocalDate.ofEpochDay(randomDay);
 		System.out.println(randomDate);*/
-	for (int i = 0; i < 70; i++) {
+	System.out.println(list.size() + " liste efter " + list.get(0).getColor());
+	for (int i = 0; i < 1; i++) {
 		Random rand = new Random();
 		int j = rand.nextInt(105);
 		System.out.println(j + 43);
-		ArrayList<Bike> list = bikes.getBikes();
+
 		int k = rand.nextInt(list.size());
 		System.out.println(list.get(k).getBikeID() + " " + j);
 		System.out.println(AccessBike.executeBikeLoan(list.get(k).getBikeID(), j + 43));

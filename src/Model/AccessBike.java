@@ -196,12 +196,13 @@ public class AccessBike {
         try {
             conn = DBUtil.getConnection(dataBase);
             conn.setAutoCommit(false);
-            String sql = "CALL delete_bike(?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
+            String sql = "CALL delete_bike(?, ?)";
+            CallableStatement ps = conn.prepareCall(sql);
             ps.setInt(1, bikeID);
+            ps.registerOutParameter(2, Types.BOOLEAN);
             ps.executeQuery();
             conn.commit();
-            returnBool = true;
+            returnBool = ps.getBoolean(2);
         } catch (Exception e) {
             try {
                 conn.rollback();
