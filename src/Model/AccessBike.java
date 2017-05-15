@@ -498,4 +498,116 @@ public class AccessBike {
         bikes.setTenNextfromInt(nextfromInt + numberOfBikesRead);
         return bikes;
     }
+
+    public static Bikes getNextAvailableBikes(Integer tenNextfromInt, Integer numberOfBikesRead, int userID) {
+        Bikes bikes = new Bikes();
+        PrestandaMeasurement pm = new PrestandaMeasurement();
+        bikes.setPrestandaMeasurement(pm);
+        ArrayList<Bike> bikeList = new ArrayList<>();
+        DBType dataBase = null;
+        Connection conn = null;
+        Date dayOfReturn = null;
+
+        if (helpers.PCRelated.isThisNiklasPC()) {
+            dataBase = DBType.Niklas;
+        } else {
+            dataBase = DBType.Ulrika;
+        }
+        try {
+            conn = DBUtil.getConnection(dataBase);
+            System.out.println(userID);
+            String sql = "CALL search_next_available_bikes_previous_choise(?,?,?,?,?)";
+            CallableStatement ps = conn.prepareCall(sql);
+            ps.setInt(1,tenNextfromInt );
+            ps.setInt(2,userID);
+            ps.setInt(3,numberOfBikesRead);
+            ps.registerOutParameter(4, Types.INTEGER);
+            ps.registerOutParameter(5, Types.INTEGER);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bike tempBike = new Bike();
+                tempBike.setBikeID(rs.getInt("bikeid"));
+                tempBike.setModelYear(rs.getInt("modelyear"));
+                tempBike.setColor(rs.getString("color"));
+                Blob blob = rs.getBlob("image");
+                byte[] bytes = blob.getBytes(1, (int) blob.length());
+                ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+                tempBike.setImageStream(bis);
+                tempBike.setSize(rs.getInt("size"));
+                tempBike.setType(rs.getString("typeName"));
+                tempBike.setBrandName(rs.getString("brandname"));
+                boolean isAvailable = rs.getBoolean("available");
+                tempBike.setAvailable(isAvailable);
+                bikeList.add(tempBike);
+            }
+            bikes.setLasID( ps.getInt(4));
+            double timeDB = ps.getDouble(5)/1000.0;
+
+            bikes.getPrestandaMeasurement().setDbProcedureSec(timeDB);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        bikes.setBikes(bikeList);
+        bikes.setTenNextfromInt(tenNextfromInt + numberOfBikesRead);
+        return bikes;
+    }
+
+    public static Bikes getNextAvailableBikesNotPrevious(Integer tenNextfromInt, Integer numberOfBikesRead, int userID) {
+        Bikes bikes = new Bikes();
+        PrestandaMeasurement pm = new PrestandaMeasurement();
+        bikes.setPrestandaMeasurement(pm);
+        ArrayList<Bike> bikeList = new ArrayList<>();
+        DBType dataBase = null;
+        Connection conn = null;
+        Date dayOfReturn = null;
+
+        if (helpers.PCRelated.isThisNiklasPC()) {
+            dataBase = DBType.Niklas;
+        } else {
+            dataBase = DBType.Ulrika;
+        }
+        try {
+            conn = DBUtil.getConnection(dataBase);
+            System.out.println(userID);
+            String sql = "CALL search_next_available_bikes_not_previous_choise(?,?,?,?,?)";
+            CallableStatement ps = conn.prepareCall(sql);
+            ps.setInt(1,tenNextfromInt );
+            ps.setInt(2,userID);
+            ps.setInt(3,numberOfBikesRead);
+            ps.registerOutParameter(4, Types.INTEGER);
+            ps.registerOutParameter(5, Types.INTEGER);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bike tempBike = new Bike();
+                tempBike.setBikeID(rs.getInt("bikeid"));
+                tempBike.setModelYear(rs.getInt("modelyear"));
+                tempBike.setColor(rs.getString("color"));
+                Blob blob = rs.getBlob("image");
+                byte[] bytes = blob.getBytes(1, (int) blob.length());
+                ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+                tempBike.setImageStream(bis);
+                tempBike.setSize(rs.getInt("size"));
+                tempBike.setType(rs.getString("typeName"));
+                tempBike.setBrandName(rs.getString("brandname"));
+                boolean isAvailable = rs.getBoolean("available");
+                tempBike.setAvailable(isAvailable);
+                bikeList.add(tempBike);
+            }
+            bikes.setLasID( ps.getInt(4));
+            double timeDB = ps.getDouble(5)/1000.0;
+
+            bikes.getPrestandaMeasurement().setDbProcedureSec(timeDB);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        bikes.setBikes(bikeList);
+        bikes.setTenNextfromInt(tenNextfromInt + numberOfBikesRead);
+        return bikes;
+    }
 }
+
+
+
+

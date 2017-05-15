@@ -41,4 +41,7 @@ public interface DBAccess{
     boolean insertNewUser(String fname, String lname, int memberlevel, Year year, String email, int phone, String username, String gender, String passw);
     int insertPrestandaMesaurment(PrestandaMeasurement prestandaMeasurement);
     Bikes getNextAvailableBikes(int tenNextfromInt,  int numberOfBikesRead);
+    Bikes getNextAvailableBikes(Integer tenNextfromInt, Integer numberOfBikesRead, int userID);
+
+    Bikes getNextAvailableBikesNotPrevious(Integer tenNextfromInt, Integer numberOfBikesRead, int userID);
 }

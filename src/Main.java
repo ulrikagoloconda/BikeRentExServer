@@ -19,15 +19,39 @@ public class Main {
 private static ByteArrayInputStream stream;
 	public static void main(String[] args) {
 		System.out.println("Obs, k�rs fr�n main och inte som server ");
-		Bike bike = AccessBike.getBikeByID(39427);
-		stream = bike.getImageStream();
-		addBikesChild();
-	/*	39125
-	39414
-	*
-		for(int i = 39005; i < 38952	; i++){
-			deletBikes(i);
+
+		AccessBike.getNextAvailableBikesNotPrevious(0,10,19);
+
+		/*ArrayList<Bike> bikes = new ArrayList<>();
+		for (int i = 1; i <=7; i++){
+			bikes.add(AccessBike.getBikeByID(i));
 		}
+
+		Random random = new Random();
+		for (int i = 0; i < 100; i++ ) {
+			Bike b = bikes.get(random.nextInt(bikes.size()));
+			b.getImageStream().reset();
+			System.out.println(AccessBike.insertNewBike(b));
+		}
+
+
+
+
+
+		//AccessBike.insertNewBike()
+
+
+		//addBikesChild();
+	/*
+	barn_sport 39429 rosa
+	Herr_sport 39003 gul Cresent
+	Herr_city 39431 Grön Hammarby
+	Dam_city 39425 vit Monark
+	Dam_sport 39430 Röd Scott
+	MTB_unisex 39124 svart Crecent
+	Barn 38667 blå Yosmite
+
+	 */
 
 //rentBIkes();
 		/*long minDay = LocalDate.of(1945, 1, 1).toEpochDay();
