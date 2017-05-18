@@ -20,6 +20,11 @@ private static ByteArrayInputStream stream;
 	public static void main(String[] args) {
 		System.out.println("Obs, k�rs fr�n main och inte som server ");
 
+		Bikes bikes = AccessBike.getNextAvailableBikes(0,10,19);
+		for(Bike b : bikes.getBikes()){
+			System.out.println(b.getColor());
+		}
+
 		AccessBike.getNextAvailableBikesNotPrevious(0,10,19);
 
 		/*ArrayList<Bike> bikes = new ArrayList<>();

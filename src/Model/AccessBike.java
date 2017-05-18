@@ -550,6 +550,9 @@ public class AccessBike {
         }
         bikes.setBikes(bikeList);
         bikes.setTenNextfromInt(tenNextfromInt + numberOfBikesRead);
+        for(Bike b : bikes.getBikes()){
+            System.out.println(b.getColor());
+        }
         return bikes;
     }
 
